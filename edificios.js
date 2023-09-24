@@ -8,9 +8,9 @@ class Edificio {
 }
 
 const dataEdificios = [
-  { nombre: "Edificio1", costo: 15, ingresos: 1 },
-  { nombre: "Edificio2", costo: 100, ingresos: 5 },
-  { nombre: "Edificio3", costo: 300, ingresos: 20 },
+  { nombre: "Edificio1", costo: 15, ingresos: 0.1 },
+  { nombre: "Edificio2", costo: 100, ingresos: 1 },
+  { nombre: "Edificio3", costo: 300, ingresos: 5 },
 ];
 
 function cargarDataEdificios() {

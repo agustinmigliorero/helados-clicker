@@ -1,4 +1,7 @@
 const spanCantidadHelados = document.querySelector("#span-cantidad-helados");
+const spanHeladosPorSegundo = document.querySelector(
+  "#span-helados-por-segundo"
+);
 const btnClickHelados = document.querySelector("#btn-click-helado");
 const contenedorBotonesEdificios = document.querySelector(
   "#contenedor-botones-edificios"
@@ -16,7 +19,6 @@ let juego = {
   poderClick: 1,
   cantidadEdificiosAComprar: 1,
   tiempoActual: new Date(),
-  delayAcumulado: 0,
 };
 
 btnClickHelados.addEventListener("click", () => {
@@ -75,6 +77,7 @@ function actualizarDisplay() {
 
 function actualizarHelados() {
   spanCantidadHelados.textContent = juego.helados.toFixed(0);
+  spanHeladosPorSegundo.textContent = calcularIngresosPorSegundo().toFixed(1);
 }
 
 function actualizarEdificios() {
@@ -103,10 +106,10 @@ function main() {
   crearBotonesEdificios();
   function gameLoop() {
     const tiempo = Date.now();
-    let deltaTime = tiempo - juego.tiempoActual;
+    let delayTiempo = tiempo - juego.tiempoActual;
 
-    while (deltaTime >= 1000 / FPS) {
-      deltaTime -= 1000 / FPS;
+    while (delayTiempo >= 1000 / FPS) {
+      delayTiempo -= 1000 / FPS;
       ejecutarLogicaDelJuego();
     }
     juego.tiempoActual = tiempo;
