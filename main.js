@@ -99,26 +99,21 @@ function ejecutarLogicaDelJuego() {
   sumarHelados(calcularIngresosPorSegundo() / FPS);
   actualizarDisplay();
 }
-// function main() {
-//   crearBotonesEdificios();
-//   setInterval(() => {
-//     ejecutarLogicaDelJuego();
-//   }, 1000 / FPS);
-// }
+function main() {
+  crearBotonesEdificios();
+  function gameLoop() {
+    const tiempo = Date.now();
+    let deltaTime = tiempo - juego.tiempoActual;
 
-// main();
-crearBotonesEdificios();
+    while (deltaTime >= 1000 / FPS) {
+      deltaTime -= 1000 / FPS;
+      ejecutarLogicaDelJuego();
+    }
+    juego.tiempoActual = tiempo;
 
-function mainLoop() {
-  const tiempo = Date.now();
-  let deltaTime = tiempo - juego.tiempoActual;
-
-  while (deltaTime >= 1000 / FPS) {
-    deltaTime -= 1000 / FPS;
-    ejecutarLogicaDelJuego();
+    setTimeout(gameLoop, 1000 / FPS);
   }
-  juego.tiempoActual = tiempo;
-
-  setTimeout(mainLoop, 1000 / FPS);
+  gameLoop();
 }
-mainLoop();
+
+main();
