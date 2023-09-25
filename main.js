@@ -26,6 +26,8 @@ let juego = {
   poderClick: 1,
   cantidadEdificiosAComprar: 1,
   tiempoActual: new Date(),
+  fechaPartidaCreada: new Date().getTime(),
+  fechaUltimoGuardado: new Date().getTime(),
 };
 
 btnClickHelados.addEventListener("click", () => {
@@ -199,6 +201,7 @@ function animacionNumerosHelado() {
 
 //GUARDADO/CARGADO DE PARTIDAS
 function guardarPartida() {
+  juego.fechaUltimoGuardado = new Date().getTime();
   localStorage.setItem("juego", JSON.stringify({ juego, edificios, mejoras }));
 }
 
