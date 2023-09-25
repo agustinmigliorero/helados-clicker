@@ -6,10 +6,14 @@ const btnClickHelados = document.querySelector("#btn-click-helado");
 const contenedorBotonesEdificios = document.querySelector(
   "#contenedor-botones-edificios"
 );
+const contenedorBotonesMejoras = document.querySelector(
+  "#contenedor-botones-mejoras"
+);
 
 let btnEdificios;
 let spanCostoEdificios;
 let spanCantidadEdificios;
+let btnMejoras;
 
 const FPS = 1000 / 30;
 const multiplicadorCostoEdificios = 1.15;
@@ -30,7 +34,7 @@ btnClickHelados.addEventListener("click", () => {
 let edificios = cargarDataEdificios();
 function crearBotonesEdificios() {
   for (let i = 0; i < edificios.length; i++) {
-    let botonEdificio = document.createElement("button");
+    let botonEdificio = document.createElement("div");
     botonEdificio.classList.add("btn-edificios");
     botonEdificio.innerHTML = `
     <div class="row">
@@ -77,6 +81,32 @@ function comprarEdificio(edificio, cantidad) {
 
 //MEJORAS
 let mejoras = cargarDatamejoras();
+
+function crearBotonesMejoras() {
+  for (let i = 0; i < mejoras.length; i++) {
+    let botonMejora = document.createElement("div");
+    botonMejora.classList.add("btn-mejoras");
+    botonMejora.style.display = "none";
+    botonMejora.innerHTML = `<img src="${mejoras[i].img}">`;
+    botonMejora.addEventListener("click", () => {
+      comprarMejora(mejoras[i]);
+    });
+    contenedorBotonesMejoras.appendChild(botonMejora);
+  }
+  btnMejoras = document.querySelectorAll(".btn-mejoras");
+}
+
+function comprarMejora(mejora) {
+  if (juego.helados >= mejora.costo && !mejora.comprado) {
+    juego.helados -= mejora.costo;
+    mejora.comprado = true;
+    if (mejora.IDEdificio < 0) {
+      juego.poderClick *= mejora.bonus;
+    } else {
+      edificios[mejora.IDEdificio].ingresos *= mejora.bonus;
+    }
+  }
+}
 //MEJORAS
 
 function sumarHelados(helados) {
@@ -87,6 +117,7 @@ function sumarHelados(helados) {
 function actualizarDisplay() {
   actualizarHelados();
   actualizarEdificios();
+  actualizarMejoras();
   document.querySelector(
     "title"
   ).textContent = `Helados: ${numberformat.formatShort(juego.helados, {
@@ -117,6 +148,23 @@ function actualizarEdificios() {
     );
   }
 }
+
+function actualizarMejoras() {
+  for (let i = 0; i < btnMejoras.length; i++) {
+    if (!mejoras[i].comprado) {
+      if (mejoras[i].IDEdificio < 0 && mejoras[i].requisito <= juego.helados) {
+        btnMejoras[i].style.display = "inline-block";
+      } else if (
+        mejoras[i].IDEdificio >= 0 &&
+        mejoras[i].requisito <= edificios[mejoras[i].IDEdificio].cantidad
+      ) {
+        btnMejoras[i].style.display = "inline-block";
+      }
+    } else {
+      btnMejoras[i].style.display = "none";
+    }
+  }
+}
 //DISPLAY
 
 function calcularIngresosPorSegundo() {
@@ -133,6 +181,7 @@ function ejecutarLogicaDelJuego() {
 }
 function main() {
   crearBotonesEdificios();
+  crearBotonesMejoras();
   function gameLoop() {
     const tiempo = Date.now();
     let delayTiempo = tiempo - juego.tiempoActual;

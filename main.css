@@ -84,3 +84,31 @@ body {
   width: 64px;
   top: 5px;
 }
+
+.btn-mejoras {
+  border: 2px solid black;
+  height: 64px;
+  width: 64px;
+  background-color: #d060ec;
+  display: inline-block;
+  margin-left: 2px;
+  margin-bottom: 2px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  position: relative;
+}
+
+.btn-mejoras:hover {
+  transform: scale(1.05);
+  opacity: 0.93;
+}
+
+.btn-mejoras:active {
+  opacity: 0.93;
+  transform: scale(0.95);
+}
+
+.btn-mejoras img {
+  height: 60px;
+  width: 60px;
+}
