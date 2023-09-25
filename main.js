@@ -46,17 +46,6 @@ function crearBotonesEdificios() {
         </div>
     </div>
     `;
-
-    /*
-    `
-    <div class="container-img-edificios"><img class="img-btn-edificios" src="${edificios[i].img}" /></div>
-    <div class="div-flexbox">
-    <p class="btn-edificios-texto btn-edificios-nombre">${edificios[i].nombre} </p>
-    <span class="span-cantidad-edificios">${edificios[i].cantidad}</span>
-    </div>
-    <p class="btn-edificios-texto btn-edificios-costo">Costo: <span class="span-costo-edificios">${edificios[i].costo}</span></p>
-    `
-    */
     botonEdificio.addEventListener("click", () => {
       comprarEdificio(edificios[i], juego.cantidadEdificiosAComprar);
     });
@@ -85,6 +74,10 @@ function comprarEdificio(edificio, cantidad) {
   }
 }
 //EDIFICIOS
+
+//MEJORAS
+let mejoras = cargarDatamejoras();
+//MEJORAS
 
 function sumarHelados(helados) {
   juego.helados += helados;
