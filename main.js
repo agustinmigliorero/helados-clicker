@@ -9,6 +9,9 @@ const contenedorBotonesEdificios = document.querySelector(
 const contenedorBotonesMejoras = document.querySelector(
   "#contenedor-botones-mejoras"
 );
+const containerAnimacionHelado = document.querySelector(
+  ".container-animacion-helado"
+);
 
 let btnEdificios;
 let spanCostoEdificios;
@@ -28,6 +31,7 @@ let juego = {
 btnClickHelados.addEventListener("click", () => {
   sumarHelados(juego.poderClick);
   actualizarDisplay();
+  animacionNumerosHelado();
 });
 
 //EDIFICIOS
@@ -167,6 +171,62 @@ function actualizarMejoras() {
 }
 //DISPLAY
 
+//ANIMACIONES
+function animacionNumerosHelado() {
+  let posicionHelado = document
+    .querySelector(".img-click-helado")
+    .getBoundingClientRect();
+  let posX = posicionHelado.x - 30;
+  let posY = posicionHelado.y;
+  posX += Math.random() * 80 - 40;
+  posY += Math.random() * 80 - 40;
+  let elementoNumeroHTML = `<span><b>+${juego.poderClick}<b></span>`;
+  let elementoNuevo = document.createElement("div");
+  elementoNuevo.classList.add("contenedor-numero-helado");
+  elementoNuevo.classList.add("animacion-helado");
+  elementoNuevo.innerHTML = elementoNumeroHTML;
+  elementoNuevo.style.position = "absolute";
+  elementoNuevo.style.top = `${posY}px`;
+  elementoNuevo.style.left = `${posX}px`;
+  containerAnimacionHelado.appendChild(elementoNuevo);
+
+  setTimeout(function () {
+    containerAnimacionHelado.removeChild(containerAnimacionHelado.firstChild);
+  }, 1000);
+}
+
+//ANIMACIONES
+
+//GUARDADO/CARGADO DE PARTIDAS
+function guardarPartida() {
+  localStorage.setItem("juego", JSON.stringify({ juego, edificios, mejoras }));
+}
+
+function borrarPartida() {
+  localStorage.removeItem("juego");
+  location.reload();
+}
+
+function cargarPartida() {
+  let partida = JSON.parse(localStorage.getItem("juego"));
+  if (partida) {
+    juego = partida.juego;
+    edificios = partida.edificios;
+    mejoras = partida.mejoras;
+  }
+}
+
+function exportarPartida() {
+  return JSON.stringify({ juego, edificios, mejoras });
+}
+
+function importarPartida(partida) {
+  localStorage.setItem("juego", partida);
+  location.reload();
+}
+//GUARDADO/CARGADO DE PARTIDAS
+
+//LOGICA/GAMELOOP
 function calcularIngresosPorSegundo() {
   let ingresos = 0;
   for (let i = 0; i < edificios.length; i++) {
@@ -180,6 +240,7 @@ function ejecutarLogicaDelJuego() {
   actualizarDisplay();
 }
 function main() {
+  cargarPartida();
   crearBotonesEdificios();
   crearBotonesMejoras();
   function gameLoop() {
@@ -198,3 +259,4 @@ function main() {
 }
 
 main();
+//LOGICA/GAMELOOP
