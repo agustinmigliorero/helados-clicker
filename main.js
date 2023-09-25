@@ -32,7 +32,31 @@ function crearBotonesEdificios() {
   for (let i = 0; i < edificios.length; i++) {
     let botonEdificio = document.createElement("button");
     botonEdificio.classList.add("btn-edificios");
-    botonEdificio.innerHTML = `${edificios[i].nombre} Cantidad: <span class="span-cantidad-edificios">${edificios[i].cantidad}</span> Costo: <span class="span-costo-edificios">${edificios[i].costo}</span>`;
+    botonEdificio.innerHTML = `
+    <div class="row">
+        <div class="col-2">
+            <img class="img-btn-edificios" src="${edificios[i].img}" />
+        </div>
+        <div class="col-8">
+            <p class="btn-edificios-texto btn-edificios-nombre">${edificios[i].nombre} </p>
+            <p class="btn-edificios-texto btn-edificios-costo">Costo: <span class="span-costo-edificios">${edificios[i].costo}</span></p>
+        </div>
+        <div class="col-2">
+            <span class="span-cantidad-edificios">${edificios[i].cantidad}</span>
+        </div>
+    </div>
+    `;
+
+    /*
+    `
+    <div class="container-img-edificios"><img class="img-btn-edificios" src="${edificios[i].img}" /></div>
+    <div class="div-flexbox">
+    <p class="btn-edificios-texto btn-edificios-nombre">${edificios[i].nombre} </p>
+    <span class="span-cantidad-edificios">${edificios[i].cantidad}</span>
+    </div>
+    <p class="btn-edificios-texto btn-edificios-costo">Costo: <span class="span-costo-edificios">${edificios[i].costo}</span></p>
+    `
+    */
     botonEdificio.addEventListener("click", () => {
       comprarEdificio(edificios[i], juego.cantidadEdificiosAComprar);
     });
@@ -72,19 +96,31 @@ function actualizarDisplay() {
   actualizarEdificios();
   document.querySelector(
     "title"
-  ).textContent = `Helados: ${juego.helados.toFixed(0)}`;
+  ).textContent = `Helados: ${numberformat.formatShort(juego.helados, {
+    sigfigs: 4,
+  })}`;
 }
 
 function actualizarHelados() {
-  spanCantidadHelados.textContent = juego.helados.toFixed(0);
-  spanHeladosPorSegundo.textContent = calcularIngresosPorSegundo().toFixed(1);
+  spanCantidadHelados.textContent = numberformat.formatShort(juego.helados, {
+    sigfigs: 4,
+  });
+  spanHeladosPorSegundo.textContent =
+    calcularIngresosPorSegundo() < 1000
+      ? calcularIngresosPorSegundo().toFixed(1)
+      : numberformat.formatShort(calcularIngresosPorSegundo(), {
+          sigfigs: 4,
+        });
 }
 
 function actualizarEdificios() {
   for (let i = 0; i < spanCantidadEdificios.length; i++) {
     spanCantidadEdificios[i].textContent = edificios[i].cantidad;
-    spanCostoEdificios[i].textContent = Math.ceil(edificios[i].costo).toFixed(
-      0
+    spanCostoEdificios[i].textContent = numberformat.formatShort(
+      Math.ceil(edificios[i].costo),
+      {
+        sigfigs: 4,
+      }
     );
   }
 }

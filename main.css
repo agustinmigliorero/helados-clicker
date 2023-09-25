@@ -1,0 +1,86 @@
+body {
+  background-color: #ffe3a1c5;
+}
+
+.center {
+  text-align: center;
+}
+
+#btn-click-helado {
+  transition: all 0.1s ease-in-out;
+  position: relative;
+  width: 100%;
+  margin-top: 10%;
+}
+
+#btn-click-helado:hover {
+  cursor: pointer;
+  transform: scale(1.07);
+}
+
+#btn-click-helado:active {
+  opacity: 0.95;
+  transform: scale(0.93);
+}
+
+#btn-click-helado img {
+  width: 150px;
+}
+
+.texto-helados-por-segundo {
+  font-family: "Fredoka One", cursive;
+  color: #fc777b;
+}
+
+.btn-edificios {
+  background: rgb(252, 145, 148);
+  background: radial-gradient(
+    circle,
+    rgba(252, 145, 148, 1) 0%,
+    rgba(253, 202, 204, 1) 100%
+  );
+  border: 4px solid rgb(252, 145, 148);
+  border-radius: 10px;
+  transition: all 0.2s ease-in-out;
+  width: 95%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  /* display: flex; */
+}
+
+.btn-edificios:hover {
+  opacity: 0.93;
+  cursor: pointer;
+  transform: scale(1.05);
+}
+
+.btn-edificios:active {
+  opacity: 0.93;
+  cursor: pointer;
+  transform: scale(0.95);
+}
+
+.btn-edificios-texto {
+  font-family: "Fredoka One", cursive;
+  color: #2e2e2e;
+  text-align: start;
+  margin-left: 15%;
+  margin-bottom: 0;
+}
+
+.btn-edificios-nombre {
+  font-size: 20px;
+  color: #2e2e2e;
+}
+
+.span-cantidad-edificios {
+  font-size: 48px;
+  color: #2e2e2e;
+  order: 2;
+}
+
+.img-btn-edificios {
+  height: 64px;
+  width: 64px;
+  top: 5px;
+}

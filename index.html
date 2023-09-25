@@ -6,16 +6,36 @@
     <title>Page Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="./librerias/bootstrap.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
     <script src="./librerias/popper.js"></script>
     <script src="./librerias/swarm-formatter.js"></script>
     <script src="./librerias/bootstrap.bundle.min.js"></script>
   </head>
   <body>
-    <h1>Helados: <span id="span-cantidad-helados">0</span></h1>
-    <h2>Produccion actual: <span id="span-helados-por-segundo"></span>/s</h2>
-    <button id="btn-click-helado">Helado</button>
-    <div id="contenedor-botones-edificios"></div>
+    <div class="row">
+      <div class="col-12 col-sm-3 center">
+        <h1 class="texto-helados-por-segundo">
+          Helados: <span id="span-cantidad-helados">0</span>
+        </h1>
+        <h2 class="texto-helados-por-segundo">
+          Produccion actual: <span id="span-helados-por-segundo"></span>/s
+        </h2>
+        <div id="btn-click-helado">
+          <img src="./imagenes/Helado.png" alt="" />
+        </div>
+      </div>
+      <div class="col-12 col-sm-6"></div>
+      <div class="col-12 col-sm-3">
+        <div id="contenedor-botones-edificios"></div>
+      </div>
+    </div>
+
     <script src="edificios.js"></script>
     <script src="main.js"></script>
   </body>
