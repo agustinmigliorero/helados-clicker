@@ -1,6 +1,7 @@
 body {
   background-color: #ffe3a1c5;
   user-select: none;
+  overflow: hidden;
 }
 
 .center {
@@ -65,7 +66,7 @@ body {
   font-family: "Fredoka One", cursive;
   color: #2e2e2e;
   text-align: start;
-  margin-left: 15%;
+  margin-left: 22%;
   margin-bottom: 0;
 }
 
@@ -78,12 +79,23 @@ body {
   font-size: 48px;
   color: #2e2e2e;
   order: 2;
+  margin-right: 10px;
 }
 
 .img-btn-edificios {
   height: 64px;
   width: 64px;
   top: 5px;
+}
+
+#contenedor-botones-edificios {
+  height: 77vh;
+  overflow: auto;
+}
+
+#contenedor-botones-mejoras {
+  height: 20vh;
+  overflow: auto;
 }
 
 .btn-mejoras {

@@ -47,11 +47,11 @@ function crearBotonesEdificios() {
         <div class="col-2">
             <img class="img-btn-edificios" src="${edificios[i].img}" />
         </div>
-        <div class="col-8">
-            <p class="btn-edificios-texto btn-edificios-nombre">${edificios[i].nombre} </p>
-            <p class="btn-edificios-texto btn-edificios-costo">Costo: <span class="span-costo-edificios">${edificios[i].costo}</span></p>
+        <div class="col-5">
+            <p class="btn-edificios-texto btn-edificios-nombre ">${edificios[i].nombre} </p>
+            <p class="btn-edificios-texto btn-edificios-costo ">Costo: <span class="span-costo-edificios">${edificios[i].costo}</span></p>
         </div>
-        <div class="col-2">
+        <div class="col-5" style="text-align: right;">
             <span class="span-cantidad-edificios">${edificios[i].cantidad}</span>
         </div>
     </div>
@@ -202,20 +202,24 @@ function animacionNumerosHelado() {
 //GUARDADO/CARGADO DE PARTIDAS
 function guardarPartida() {
   juego.fechaUltimoGuardado = new Date().getTime();
-  localStorage.setItem("juego", JSON.stringify({ juego, edificios, mejoras }));
+  localStorage.setItem(
+    "partida",
+    JSON.stringify({ juego, edificios, mejoras })
+  );
 }
 
 function borrarPartida() {
-  localStorage.removeItem("juego");
+  localStorage.removeItem("partida");
   location.reload();
 }
 
 function cargarPartida() {
-  let partida = JSON.parse(localStorage.getItem("juego"));
+  let partida = JSON.parse(localStorage.getItem("partida"));
   if (partida) {
     juego = partida.juego;
     edificios = partida.edificios;
     mejoras = partida.mejoras;
+    juego.tiempoActual = new Date();
   }
 }
 
@@ -224,7 +228,7 @@ function exportarPartida() {
 }
 
 function importarPartida(partida) {
-  localStorage.setItem("juego", partida);
+  localStorage.setItem("partida", partida);
   location.reload();
 }
 //GUARDADO/CARGADO DE PARTIDAS
@@ -239,25 +243,28 @@ function calcularIngresosPorSegundo() {
 }
 
 function ejecutarLogicaDelJuego() {
-  sumarHelados(calcularIngresosPorSegundo() / FPS);
+  juego.helados += calcularIngresosPorSegundo() / FPS;
+  // sumarHelados(calcularIngresosPorSegundo() / FPS);
   actualizarDisplay();
 }
+
+function gameLoop() {
+  const tiempo = Date.now();
+  let delayTiempo = tiempo - juego.tiempoActual;
+
+  while (delayTiempo >= 1000 / FPS) {
+    delayTiempo -= 1000 / FPS;
+    ejecutarLogicaDelJuego();
+  }
+  juego.tiempoActual = tiempo;
+
+  setTimeout(gameLoop, 1000 / FPS);
+}
+
 function main() {
   cargarPartida();
   crearBotonesEdificios();
   crearBotonesMejoras();
-  function gameLoop() {
-    const tiempo = Date.now();
-    let delayTiempo = tiempo - juego.tiempoActual;
-
-    while (delayTiempo >= 1000 / FPS) {
-      delayTiempo -= 1000 / FPS;
-      ejecutarLogicaDelJuego();
-    }
-    juego.tiempoActual = tiempo;
-
-    setTimeout(gameLoop, 1000 / FPS);
-  }
   gameLoop();
 }
 
