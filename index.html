@@ -23,6 +23,25 @@
     ></script>
   </head>
   <body>
+    <div class="modal-mio esconder-modal" id="modal-exportar">
+      <textarea name="" id="textarea-exportar" cols="30" rows="10"></textarea>
+
+      <button id="btn-cerrar-modal-exportar" class="btn btn-primary">
+        Aceptar
+      </button>
+    </div>
+
+    <div class="modal-mio esconder-modal" id="modal-importar">
+      <textarea name="" id="textarea-importar" cols="30" rows="10"></textarea>
+      <span id="span-error-importar"></span>
+      <button class="btn btn-primary" id="btn-importar-partida">
+        Cargar Partida
+      </button>
+      <button id="btn-cerrar-modal-importar" class="btn btn-danger">
+        Cancelar
+      </button>
+    </div>
+
     <div class="row">
       <div class="col-12 col-sm-3 center">
         <h1 class="texto-helados-por-segundo">
@@ -35,8 +54,18 @@
           <img class="img-click-helado" src="./imagenes/Helado.png" alt="" />
         </div>
       </div>
-      <div class="col-12 col-sm-6">
+      <div class="col-12 col-sm-6 mt-5" style="text-align: center">
         <div style="position: absolute" id="tooltips-div"></div>
+
+        <button class="btn btn-success" id="btn-modal-exportar">
+          Exportar Partida
+        </button>
+        <button class="btn btn-primary" id="btn-modal-importar">
+          Importar Partida
+        </button>
+        <button class="btn btn-danger" id="btn-borrar-partida">
+          Borrar Partida
+        </button>
       </div>
       <div class="col-12 col-sm-3">
         <div id="contenedor-botones-mejoras"></div>

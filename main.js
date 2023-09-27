@@ -241,7 +241,7 @@ function importarPartida(partida) {
       desencriptar(partida).toString(CryptoJS.enc.Utf8)
     );
   } catch (error) {
-    console.log("ERROR AL DESENCRIPTAR LA PARTIDA");
+    spanErrorImportar.textContent = "ERROR AL DESENCRIPTAR LA PARTIDA";
   }
   if (partidaDesencriptada) {
     localStorage.setItem("partida", partida);
@@ -265,6 +265,51 @@ function desencriptar(partidaEncriptada) {
 //ENCRIPTAR
 
 //GUARDADO/CARGADO DE PARTIDAS
+
+// MODALES
+
+const btnModalExportar = document.querySelector("#btn-modal-exportar");
+const btnModalImportar = document.querySelector("#btn-modal-importar");
+const btnBorrarPartida = document.querySelector("#btn-borrar-partida");
+const btnCerrarModalExportar = document.querySelector(
+  "#btn-cerrar-modal-exportar"
+);
+const btnCerrarModalImportar = document.querySelector(
+  "#btn-cerrar-modal-importar"
+);
+const btnImportarPartida = document.querySelector("#btn-importar-partida");
+const modalExportar = document.querySelector("#modal-exportar");
+const modalImportar = document.querySelector("#modal-importar");
+const textareaExportar = document.querySelector("#textarea-exportar");
+const textareaImportar = document.querySelector("#textarea-importar");
+const spanErrorImportar = document.querySelector("#span-error-importar");
+
+btnModalExportar.addEventListener("click", () => {
+  textareaExportar.value = exportarPartida();
+  modalExportar.classList.remove("esconder-modal");
+});
+
+btnModalImportar.addEventListener("click", () => {
+  modalImportar.classList.remove("esconder-modal");
+});
+
+btnCerrarModalExportar.addEventListener("click", () => {
+  modalExportar.classList.add("esconder-modal");
+});
+
+btnCerrarModalImportar.addEventListener("click", () => {
+  modalImportar.classList.add("esconder-modal");
+});
+
+btnImportarPartida.addEventListener("click", () => {
+  importarPartida(textareaImportar.value);
+});
+
+btnBorrarPartida.addEventListener("click", () => {
+  borrarPartida();
+});
+
+// MODALES
 
 //TOOLTIPS
 
