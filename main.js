@@ -12,6 +12,7 @@ const contenedorBotonesMejoras = document.querySelector(
 const containerAnimacionHelado = document.querySelector(
   ".container-animacion-helado"
 );
+const tooltipsDiv = document.querySelector("#tooltips-div");
 
 let btnEdificios;
 let spanCostoEdificios;
@@ -59,6 +60,7 @@ function crearBotonesEdificios() {
     botonEdificio.addEventListener("click", () => {
       comprarEdificio(edificios[i], juego.cantidadEdificiosAComprar);
     });
+    botonEdificio.addEventListener("mousemove", () => {});
     contenedorBotonesEdificios.appendChild(botonEdificio);
   }
   btnEdificios = document.querySelectorAll(".btn-edificios");
@@ -204,7 +206,7 @@ function guardarPartida() {
   juego.fechaUltimoGuardado = new Date().getTime();
   localStorage.setItem(
     "partida",
-    JSON.stringify({ juego, edificios, mejoras })
+    encriptar(JSON.stringify({ juego, edificios, mejoras }))
   );
 }
 
@@ -214,7 +216,12 @@ function borrarPartida() {
 }
 
 function cargarPartida() {
-  let partida = JSON.parse(localStorage.getItem("partida"));
+  let partida;
+  if (localStorage.partida !== undefined) {
+    partida = JSON.parse(
+      desencriptar(localStorage.getItem("partida")).toString(CryptoJS.enc.Utf8)
+    );
+  }
   if (partida) {
     juego = partida.juego;
     edificios = partida.edificios;
@@ -224,14 +231,67 @@ function cargarPartida() {
 }
 
 function exportarPartida() {
-  return JSON.stringify({ juego, edificios, mejoras });
+  return localStorage.partida;
 }
 
 function importarPartida(partida) {
-  localStorage.setItem("partida", partida);
-  location.reload();
+  let partidaDesencriptada;
+  try {
+    partidaDesencriptada = JSON.parse(
+      desencriptar(partida).toString(CryptoJS.enc.Utf8)
+    );
+  } catch (error) {
+    console.log("ERROR AL DESENCRIPTAR LA PARTIDA");
+  }
+  if (partidaDesencriptada) {
+    localStorage.setItem("partida", partida);
+    location.reload();
+  }
 }
+
+//ENCRIPTAR
+const salt = "helado";
+
+function encriptar(partidaGuardada) {
+  let archivoEncriptado = CryptoJS.AES.encrypt(partidaGuardada, salt);
+  return archivoEncriptado;
+}
+
+function desencriptar(partidaEncriptada) {
+  let archivoDesencriptado = CryptoJS.AES.decrypt(partidaEncriptada, salt);
+  return archivoDesencriptado;
+}
+
+//ENCRIPTAR
+
 //GUARDADO/CARGADO DE PARTIDAS
+
+//TOOLTIPS
+
+function mouseHoverTooltips(i) {
+  document.addEventListener("mousemove", function (e) {
+    let y = e.clientY;
+    tooltipsDiv.innerHTML = `<div class="tooltips" style="position:absolute;top:${
+      y - 75
+    }px;">
+            <section class="left">
+            <p>${mejoras.nombre[i]}</p>
+            <p>Coste: <b>${numberformat.formatShort(mejoras.costo[i], {
+              sigfigs: 4,
+            })}</b> Helados</p>
+            <i></i>
+            </section>
+        </div>`;
+  });
+}
+
+function mouseOutTooltips() {
+  onmousemove = function (e) {
+    tooltipsDiv.innerHTML = "";
+  };
+}
+
+//TOOLTIPS
 
 //LOGICA/GAMELOOP
 function calcularIngresosPorSegundo() {

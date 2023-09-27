@@ -16,6 +16,11 @@
     <script src="./librerias/popper.js"></script>
     <script src="./librerias/swarm-formatter.js"></script>
     <script src="./librerias/bootstrap.bundle.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"
+      integrity="sha256-/H4YS+7aYb9kJ5OKhFYPUjSJdrtV6AeyJOtTkw6X72o="
+      crossorigin="anonymous"
+    ></script>
   </head>
   <body>
     <div class="row">
@@ -30,7 +35,9 @@
           <img class="img-click-helado" src="./imagenes/Helado.png" alt="" />
         </div>
       </div>
-      <div class="col-12 col-sm-6"></div>
+      <div class="col-12 col-sm-6">
+        <div style="position: absolute" id="tooltips-div"></div>
+      </div>
       <div class="col-12 col-sm-3">
         <div id="contenedor-botones-mejoras"></div>
         <br />

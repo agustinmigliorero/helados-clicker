@@ -153,3 +153,44 @@ body {
     transform: translate(0px, -100px);
   }
 }
+
+/*TOOLTIPS*/
+.tooltips {
+  min-width: 350px;
+  transform: translate(165%, -50%);
+  padding: 10px 20px;
+  color: #000000;
+  background-color: #ff99ff;
+  font-weight: bold;
+  font-size: 14px;
+  border-radius: 8px;
+  position: absolute;
+  z-index: 1;
+  box-sizing: border-box;
+  border: 1px solid #ff66ff;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+}
+
+.tooltips .left i {
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  margin-top: -12px;
+  width: 12px;
+  height: 24px;
+  overflow: hidden;
+}
+
+.tooltips .left i::after {
+  content: "";
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  left: 0;
+  top: 50%;
+  transform: translate(-50%, -50%) rotate(-45deg);
+  background-color: #ff99ff;
+  border: 1px solid #ff66ff;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+}
+/*TOOLTIPS*/
