@@ -32,10 +32,14 @@ let juego = {
 };
 
 btnClickHelados.addEventListener("click", () => {
+  clickearHelado();
+});
+
+function clickearHelado() {
   sumarHelados(juego.poderClick);
   actualizarDisplay();
   animacionNumerosHelado();
-});
+}
 
 //EDIFICIOS
 let edificios = cargarDataEdificios();
@@ -375,3 +379,12 @@ function main() {
 
 main();
 //LOGICA/GAMELOOP
+
+let encriptado = encriptar("Tobias");
+console.log(encriptado.toString());
+
+document.body.addEventListener("keydown", (e) => {
+  if (e.key === " ") {
+    clickearHelado();
+  }
+});
